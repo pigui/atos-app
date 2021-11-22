@@ -7,11 +7,13 @@ import * as PostActions from '../actions/post.actions';
 import * as LoaderActions from '../../loader-store/actions/loader.actions';
 import { PostsService } from 'src/app/api/services';
 
-const START_LOADER = [PostActions.loadPosts];
+const START_LOADER = [PostActions.loadPosts, PostActions.createPost];
 
 const STOP_LOADER = [
   PostActions.loadPostsSuccess,
   PostActions.loadPostsFailure,
+  PostActions.createPostSuccess,
+  PostActions.createPostFailure,
 ];
 
 @Injectable()
@@ -23,6 +25,18 @@ export class PostEffects {
         this.postsService.postControllerFindAll({}).pipe(
           map((data) => PostActions.loadPostsSuccess({ data })),
           catchError((error) => of(PostActions.loadPostsFailure({ error })))
+        )
+      )
+    );
+  });
+
+  createPost$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(PostActions.createPost),
+      concatMap((action) =>
+        this.postsService.postControllerCreate({ body: action.data }).pipe(
+          map((data) => PostActions.createPostSuccess({ data })),
+          catchError((error) => of(PostActions.createPostFailure({ error })))
         )
       )
     );

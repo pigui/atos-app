@@ -7,6 +7,7 @@ export const postFeatureKey = 'post';
 
 export interface State extends EntityState<PostWithUser> {
   userId: number | null;
+  postIdSelected: number | null;
 }
 
 export const adapter: EntityAdapter<PostWithUser> =
@@ -14,18 +15,22 @@ export const adapter: EntityAdapter<PostWithUser> =
 
 export const initialState: State = adapter.getInitialState({
   userId: null,
+  postIdSelected: null,
 });
 
 export const reducer = createReducer(
   initialState,
   on(PostActions.loadPosts, (state) => state),
   on(PostActions.loadPostsSuccess, (state, action) =>
-    adapter.setAll(action.data, state)
+    adapter.addMany(action.data, state)
   ),
   on(PostActions.loadPostsFailure, (state, action) => state),
   on(PostActions.updateUserId, (state, action) => {
     return { ...state, userId: action.data };
-  })
+  }),
+  on(PostActions.createPostSuccess, (state, action) =>
+    adapter.addOne(action.data, state)
+  )
 );
 // get the selectors
 export const { selectIds, selectEntities, selectAll, selectTotal } =

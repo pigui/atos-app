@@ -1,0 +1,21 @@
+<div class="p-d-flex p-jc-center p-ai-center login">
+  <p-card class="p-col-6">
+    <div class="p-fluid p-formgrid p-grid">
+      <div class="p-field p-md-8 p-md-offset-2 p-col-12">
+        <ng-container *ngIf="(users$ | async) as users; else skeletonTemplate">
+          <p-dropdown
+            [options]="users"
+            optionLabel="name"
+            [formControl]="loginForm"
+            placeholder="Select a User"
+          >
+          </p-dropdown>
+        </ng-container>
+      </div>
+    </div>
+  </p-card>
+</div>
+
+<ng-template #skeletonTemplate>
+  <p-skeleton></p-skeleton>
+</ng-template>

@@ -1,4 +1,26 @@
-<p-card [header]="post.title">
+<p-card
+  [header]="post.title"
+  [styleClass]="
+    isEditable && currentUser?.id === post.user.id ? 'is-editable' : ''
+  "
+>
   {{ post.body }}
-  <ng-template pTemplate="footer"> {{ post.user.username }}</ng-template>
+  <ng-template pTemplate="footer">
+    <div class="p-grid">
+      <div class="p-col-6">{{ post.user.username }}</div>
+      <div
+        class="p-col-6 p-d-flex p-jc-end"
+        *ngIf="isEditable && currentUser?.id === post.user.id"
+      >
+        <button
+          pButton
+          type="button"
+          icon="pi-pencil"
+          class="p-button-raised p-button-rounded"
+          [style.background]="'var(--blue-500)'"
+          (click)="onClickEditButton()"
+        ></button>
+      </div>
+    </div>
+  </ng-template>
 </p-card>
