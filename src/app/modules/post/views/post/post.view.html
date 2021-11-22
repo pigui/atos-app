@@ -1,1 +1,24 @@
-<p>post works!</p>
+<div class="p-grid p-my-3">
+  <div class="p-col-12">
+    <ng-container *ngIf="(users$ | async) as users; else skeletonTemplate">
+      <p-dropdown
+        [options]="users"
+        optionLabel="name"
+        optionValue="id"
+        [showClear]="true"
+        [formControl]="filterForm"
+        placeholder="Select a User"
+      >
+      </p-dropdown>
+    </ng-container>
+  </div>
+</div>
+<div class="p-grid">
+  <ng-container *ngFor="let post of (posts$ | async)">
+    <atos-post-card [post]="post"></atos-post-card>
+  </ng-container>
+</div>
+
+<ng-template #skeletonTemplate>
+  <p-skeleton></p-skeleton>
+</ng-template>
