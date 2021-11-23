@@ -22,3 +22,8 @@ export const getPostByUserId = createSelector(
     return posts.filter((post) => post.user.id === userId);
   }
 );
+
+export const getPostSelected = createSelector(
+  selectPostState,
+  (state) => state.postSelected
+);

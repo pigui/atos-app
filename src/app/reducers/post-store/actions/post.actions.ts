@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { CreatePostDto, PostWithUser } from 'src/app/api/models';
+import { CreatePostDto, PostWithUser, UpdatePostDto } from 'src/app/api/models';
 
 export const loadPosts = createAction('[Post] Load Posts');
 
@@ -36,4 +36,24 @@ export const createPostSuccess = createAction(
 export const createPostFailure = createAction(
   '[Post] Create Post Failure',
   props<{ error: any }>()
+);
+
+export const updatePost = createAction(
+  '[Post] Update Post',
+  props<{ data: UpdatePostDto }>()
+);
+
+export const updatePostSuccess = createAction(
+  '[Post] Update Post Success',
+  props<{ data: PostWithUser }>()
+);
+
+export const updatePostFailure = createAction(
+  '[Post] Update Post Failure',
+  props<{ error: any }>()
+);
+
+export const updatePostSelected = createAction(
+  '[Post] Update Post Selected',
+  props<{ data: PostWithUser }>()
 );

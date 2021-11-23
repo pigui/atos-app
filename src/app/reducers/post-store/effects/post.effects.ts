@@ -42,6 +42,18 @@ export class PostEffects {
     );
   });
 
+  updatePost$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(PostActions.updatePost),
+      concatMap((action) =>
+        this.postsService.postControllerUpdate({ body: action.data }).pipe(
+          map((data) => PostActions.updatePostSuccess({ data })),
+          catchError((error) => of(PostActions.updatePostFailure({ error })))
+        )
+      )
+    );
+  });
+
   startLoader$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(...START_LOADER),

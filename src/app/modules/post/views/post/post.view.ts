@@ -19,7 +19,6 @@ import * as fromPostActions from '../../../../reducers/post-store/actions/post.a
 import * as fromPostSelectors from '../../../../reducers/post-store/selectors/post.selectors';
 import * as fromUserActions from '../../../../reducers/user-store/actions/user.actions';
 import * as fromUserSelectors from '../../../../reducers/user-store/selectors/user.selectors';
-import * as fromAuthActions from '../../../../reducers/auth-store/actions/auth.actions';
 import * as fromAuthSelectors from '../../../../reducers/auth-store/selectors/auth.selectors';
 import { Router } from '@angular/router';
 
@@ -75,7 +74,8 @@ export class PostView implements OnInit, OnDestroy {
   }
 
   onEdit(post: PostWithUser): void {
-    console.log(post);
+    this.store.dispatch(fromPostActions.updatePostSelected({ data: post }));
+    this.router.navigate(['/', 'post', 'edit']);
   }
 
   onCreate(): void {

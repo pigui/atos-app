@@ -17,9 +17,11 @@ import { UserStoreModule } from 'src/app/reducers/user-store/user-store.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthStoreModule } from 'src/app/reducers/auth-store/auth-store.module';
 import { PostCreateView } from './views/post-create/post-create.view';
+import { PostEditView } from './views/post-edit/post-edit.view';
+import { PostLayout } from './layouts/post/post.layout';
 
 @NgModule({
-  declarations: [PostView, PostCardComponent, PostCreateView],
+  declarations: [PostView, PostCardComponent, PostCreateView, PostEditView, PostLayout],
   imports: [
     CommonModule,
     ReactiveFormsModule,

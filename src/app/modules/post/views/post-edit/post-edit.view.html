@@ -1,0 +1,35 @@
+<p-card>
+  <form [formGroup]="form" (ngSubmit)="onEdit()">
+    <div class="p-fluid p-formgrid p-grid">
+      <div class="p-field p-md-8 p-md-offset-2 p-col-12">
+        <input
+          type="text"
+          pInputText
+          formControlName="title"
+          placeholder="Title"
+        />
+      </div>
+    </div>
+    <div class="p-fluid p-formgrid p-grid">
+      <div class="p-field p-md-8 p-md-offset-2 p-col-12">
+        <textarea
+          pInputTextarea
+          [rows]="5"
+          [cols]="30"
+          formControlName="body"
+          placeholder="Body"
+        ></textarea>
+      </div>
+    </div>
+    <div class="p-fluid p-formgrid p-grid">
+      <div class="p-field p-md-8 p-md-offset-2 p-col-12">
+        <button
+          pButton
+          type="submit"
+          [label]="'Edit Post'"
+          [disabled]="!form.valid"
+        ></button>
+      </div>
+    </div>
+  </form>
+</p-card>

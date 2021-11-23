@@ -10,6 +10,7 @@ import { map, filter } from 'rxjs/operators';
 
 import { CreatePostDto } from '../models/create-post-dto';
 import { PostWithUser } from '../models/post-with-user';
+import { UpdatePostDto } from '../models/update-post-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -65,6 +66,53 @@ export class PostsService extends BaseService {
 
     return this.postControllerFindAll$Response(params).pipe(
       map((r: StrictHttpResponse<Array<PostWithUser>>) => r.body as Array<PostWithUser>)
+    );
+  }
+
+  /**
+   * Path part for operation postControllerUpdate
+   */
+  static readonly PostControllerUpdatePath = '/posts';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `postControllerUpdate()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  postControllerUpdate$Response(params: {
+      body: UpdatePostDto
+  }): Observable<StrictHttpResponse<PostWithUser>> {
+
+    const rb = new RequestBuilder(this.rootUrl, PostsService.PostControllerUpdatePath, 'put');
+    if (params) {
+
+
+      rb.body(params.body, 'application/json');
+    }
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<PostWithUser>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `postControllerUpdate$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  postControllerUpdate(params: {
+      body: UpdatePostDto
+  }): Observable<PostWithUser> {
+
+    return this.postControllerUpdate$Response(params).pipe(
+      map((r: StrictHttpResponse<PostWithUser>) => r.body as PostWithUser)
     );
   }
 
