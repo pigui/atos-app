@@ -12,7 +12,7 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-import { ToastModule } from 'primeng/toast';
+import { VirtualScrollerModule } from 'primeng/virtualscroller';
 import { UserStoreModule } from 'src/app/reducers/user-store/user-store.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthStoreModule } from 'src/app/reducers/auth-store/auth-store.module';
@@ -21,7 +21,13 @@ import { PostEditView } from './views/post-edit/post-edit.view';
 import { PostLayout } from './layouts/post/post.layout';
 
 @NgModule({
-  declarations: [PostView, PostCardComponent, PostCreateView, PostEditView, PostLayout],
+  declarations: [
+    PostView,
+    PostCardComponent,
+    PostCreateView,
+    PostEditView,
+    PostLayout,
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -35,6 +41,7 @@ import { PostLayout } from './layouts/post/post.layout';
     ButtonModule,
     InputTextModule,
     InputTextareaModule,
+    VirtualScrollerModule,
   ],
 })
 export class PostModule {}

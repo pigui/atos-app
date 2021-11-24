@@ -53,7 +53,10 @@ export class PostView implements OnInit, OnDestroy {
     this.store.dispatch(fromUserActions.loadUsers());
     this.store.dispatch(fromPostActions.loadPosts());
     this.filterForm.valueChanges
-      .pipe(takeUntil(this.destroy$))
+      .pipe(
+        takeUntil(this.destroy$),
+        filter((userId) => !!userId)
+      )
       .subscribe((userId) =>
         this.store.dispatch(fromPostActions.updateUserId({ data: userId }))
       );

@@ -7,7 +7,7 @@
   {{ post.body }}
   <ng-template pTemplate="footer">
     <div class="p-grid">
-      <div class="p-col-6">{{ post.user.username }}</div>
+      <div class="p-col-6">{{ post.user.username }} - {{ post.user.name }}</div>
       <div
         class="p-col-6 p-d-flex p-jc-end"
         *ngIf="isEditable && currentUser?.id === post.user.id"

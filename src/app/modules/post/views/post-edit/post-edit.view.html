@@ -1,4 +1,4 @@
-<p-card>
+<p-card styleClass="p-mb-2">
   <form [formGroup]="form" (ngSubmit)="onEdit()">
     <div class="p-fluid p-formgrid p-grid">
       <div class="p-field p-md-8 p-md-offset-2 p-col-12">
@@ -32,4 +32,19 @@
       </div>
     </div>
   </form>
+</p-card>
+<p-card>
+  <p-virtualScroller
+    scrollHeight="300px"
+    [value]="(postSelected$ | async)?.comments || []"
+  >
+    <ng-template pTemplate="item" let-item
+      ><div class="p-grid p-shadow-1">
+        <div class="p-col-12">
+          <h3 class="p-text-capitalize p-text-bold">{{ item.name }}</h3>
+          <p class="p-text-italic">{{ item.body }}</p>
+        </div>
+      </div>
+    </ng-template>
+  </p-virtualScroller>
 </p-card>
