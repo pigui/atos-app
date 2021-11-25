@@ -11,6 +11,9 @@ import * as fromPostActions from '../../../../reducers/post-store/actions/post.a
 import * as fromPostSelectors from '../../../../reducers/post-store/selectors/post.selectors';
 import * as fromAuthSelectors from '../../../../reducers/auth-store/selectors/auth.selectors';
 import { PostWithUser } from 'src/app/api/models';
+import { Router } from '@angular/router';
+import { Actions, ofType } from '@ngrx/effects';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'atos-post-edit',
@@ -27,7 +30,13 @@ export class PostEditView implements OnInit {
   );
 
   private postId: number;
-  constructor(private store: Store, private fb: FormBuilder) {}
+  constructor(
+    private store: Store,
+    private fb: FormBuilder,
+    private router: Router,
+    private actions$: Actions,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
     this.postSelected$.pipe(take(1)).subscribe((post) => {
@@ -38,6 +47,19 @@ export class PostEditView implements OnInit {
       if (post) {
         this.postId = post?.id;
       }
+    });
+    this.actions$
+      .pipe(ofType(fromPostActions.updatePostSuccess))
+      .pipe(take(1))
+      .subscribe(() => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Post',
+          detail: 'Post Updated',
+        });
+      });
+    this.messageService.messageObserver.pipe(take(1)).subscribe(() => {
+      this.router.navigate(['/', 'post']);
     });
   }
 
